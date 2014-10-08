@@ -62,12 +62,6 @@ def create_spreadsheet(username, password, google_docs_folder_id=None,
 
     return gc.open_by_key(gc_id)
 
-
-def write_csv(csv_data, worksheet):
-    for row in csv_data:
-        print(row)
-    return True
-
 def main():
     args = parse_args()
     google_config = get_config(args.config_file, 'google')
@@ -95,9 +89,9 @@ def main():
 
         headers_printed = False
         for row in reader:
-            for data in reversed(row.keys()):
+            for data in row.keys():
                 if not headers_printed:
-                    for header in list(reversed(row.keys())):
+                    for header in list(row.keys()):
                         ws.update_cell(column_count, row_count, header)
                         row_count += 1
                     row_count = 1
